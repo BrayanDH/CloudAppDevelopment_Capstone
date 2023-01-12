@@ -9,6 +9,9 @@ urlpatterns = [
     # view refers to the view function
     # name the URL
 
+
+
+
     # path for about view
     path(route='about/', view=views.about, name='about'),
 
@@ -16,12 +19,25 @@ urlpatterns = [
     path(route='contact/', view=views.contact, name='contact'),
 
     # path for registration
+    path('registration/', views.registration_request, name='registration'),
 
     # path for login
+    path(route='', view=views.login_request, name='login'),
 
     # path for logout
+    path('logout/', views.logout_request, name='logout'),
 
+
+    # path for index view
     path(route='', view=views.get_dealerships, name='index'),
+
+    # path for login route
+    path(route='login/', view=views.login_request, name='login'),
+
+    # path for sign-up form
+    path(route='loginform/', view=views.login_form, name='loginform'),
+
+
 
     # path for dealer reviews view
 
