@@ -1,29 +1,53 @@
 <!DOCTYPE html>
-
-{% load static %}
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  </head>
+  <body>
+    DealerShip Review
+    <!--Add a nav bar here -->
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
+          <!--add acces to about and contact page -->
+          <a class="navbar-brand" href="/djangoapp/about">About Us</a>
+          <a class="navbar-brand" href="/djangoapp/contact">Contact Us</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          <li>
+            <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+            <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li>
+            <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Username" name="username" />
+                <input type="password" class="form-control" placeholder="Password" name="psw" />
+                <button class="btn btn-primary" type="submit">Login</button>
+                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+              </div>
+            </form>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>About Us</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'djangoapp/css/style.css' %}">
-</head>
+    <div class="container">
+      <h1>About Us</h1>
 
-<body>
-  <div class="container">
-    <h1>
-      About Us
-    </h1>
-
-    <p>En nuestra concesionaria de automóviles, nos esforzamos por ofrecerle una experiencia de compra de automóviles
-    excepcional. Con una amplia variedad de vehículos de alta calidad en inventario y un equipo de profesionales dedicados a
-    ayudarle a encontrar el vehículo perfecto para sus necesidades, estamos seguros de que encontrará lo que busca en
-    nuestra concesionaria.</p>
-  </div>
-</body>
-
+      <p>
+        En nuestra concesionaria de automóviles, nos esforzamos por ofrecerle una experiencia de compra de automóviles
+        excepcional. Con una amplia variedad de vehículos de alta calidad en inventario y un equipo de profesionales
+        dedicados a ayudarle a encontrar el vehículo perfecto para sus necesidades, estamos seguros de que encontrará lo
+        que busca en nuestra concesionaria.
+      </p>
+    </div>
+  </body>
 </html>
