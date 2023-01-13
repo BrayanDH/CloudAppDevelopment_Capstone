@@ -63,28 +63,6 @@ def logout_request(request):
     return redirect('djangoapp:index')
 
 
-# Create a `registration_request` view to handle sign up request
-# def registration_request(request):
-#     context = {}
-#     # Handles POST request
-#     if request.method == "POST":
-#         # Get username and password from request.POST dictionary
-#         username = request.POST['username']
-#         password = request.POST['psw']
-#         # Try to check if provide credential can be authenticated
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             # If user is valid, call login method to login current user
-#             login(request, user)
-#             return redirect('djangoapp:index')
-#         else:
-#             # If not, return to login page again
-#             return render(request, 'djangoapp/index.html', context)
-#     else:
-#         # if not, return index page
-#         return render(request, 'djangoapp/index.html', context)
-
-
 def registration_request(request):
     context = {}
     if request.method == 'GET':
