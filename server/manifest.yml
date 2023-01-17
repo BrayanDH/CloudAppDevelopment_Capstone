@@ -1,11 +1,10 @@
+---
 applications:
-  - name: bdhdavidApp
-    routes:
-      - route: bdhdavid.mybluemix.net
-    memory: 128M
+  - instances: 1
+    timeout: 180
+    name: pythondjangoapp
     buildpack: python_buildpack
-  - name: reviewapp-nginx
-    routes:
-      - route: bdhdavid.mybluemix.net/static
-    memory: 128M
-    buildpack: staticfile_buildpack
+    command: gunicorn --env DJANGO_SETTINGS_MODULE=pythondjangoapp.settings.production pythondjangoapp.wsgi -b 0.0.0.0:$PORT
+    memory: 512M
+    domain: not-used.net
+    host: not-used
