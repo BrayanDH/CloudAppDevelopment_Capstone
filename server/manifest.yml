@@ -1,11 +1,11 @@
-  applications:
-  - name: djangoapp
+applications:
+  - name: bdhdavidApp
     routes:
-      - route: $HOST.$DOMAIN
+      - route: bdhdavid.mybluemix.net
     memory: 128M
     buildpack: python_buildpack
-  - name: djangoapp-nginx
+  - name: reviewapp-nginx
     routes:
-      - route: $HOST.$DOMAIN/static
+      - route: bdhdavid.mybluemix.net/static
     memory: 128M
     buildpack: staticfile_buildpack
