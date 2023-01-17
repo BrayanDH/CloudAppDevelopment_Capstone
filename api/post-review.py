@@ -28,7 +28,7 @@ def main(dict):
         api_key=dict["IAM_API_KEY"],
         connect=True,
     )
-    db = client[dict["DATABASE"]]
+    db = client[dict["BBDD1"]]
     # Crear un nuevo documento
     new_doc = {
         "id": 6,

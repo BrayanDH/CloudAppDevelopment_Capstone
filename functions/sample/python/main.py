@@ -8,10 +8,24 @@ from cloudant.client import Cloudant
 from cloudant.error import CloudantException
 import requests
 from pprint import pprint
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+IAM_API_KEY = os.getenv("IAM_API_KEY")
+COUCH_USERNAME = os.getenv("COUCH_USERNAME")
+COUCH_URL = os.getenv("COUCH_URL")
+BBDD1 = os.getenv("BBDD1")
+BBDD2 = os.getenv("BBDD2")
+dealerId = os.getenv("dealerId")
+
 param_dict = {
-    "COUCH_URL": "https://4648c3fb-249c-432b-91b8-dbeedf0a2409-bluemix.cloudantnosqldb.appdomain.cloud",
-    "IAM_API_KEY": "sleg24V72V8xtJ9-l2vXIsO0AVf1kHHUl8L-zGPvQj4V",
-    "COUCH_USERNAME": "4648c3fb-249c-432b-91b8-dbeedf0a2409-bluemix"
+    "IAM_API_KEY": IAM_API_KEY,
+    "COUCH_USERNAME": COUCH_USERNAME,
+    "COUCH_URL": COUCH_URL,
+    "BBDD1": BBDD1,
+    "BBDD2": BBDD2,
+    "dealerId": 20
 }
 
 
@@ -42,9 +56,6 @@ def main(param_dict):
     return {"dbs": client.all_dbs()}
 
 
-# print(main(param_dict))
-
-
 def get_reviews(account, api_key, database):
     client = Cloudant.iam(account, api_key)
     client.connect()
@@ -59,27 +70,18 @@ def get_reviews(account, api_key, database):
 
 result = get_reviews(param_dict["COUCH_USERNAME"],
                      param_dict["IAM_API_KEY"], "reviews")
-pprint(result)
 
 
-def main(dict):
+def main(params_dic):
     client = Cloudant.iam(
-        account_name=dict["COUCH_USERNAME"],
-        api_key=dict["IAM_API_KEY"],
+        account_name=params_dic["COUCH_USERNAME"],
+        api_key=params_dic["IAM_API_KEY"],
         connect=True,
     )
-    db = client[dict["DATABASE"]]
+    db = client[params_dic["BBDD1"]]
     reviews = []
     for doc in db:
         reviews.append(doc)
     # print(reviews)
     client.disconnect()
     return json.dumps(reviews)
-
-
-{
-    "COUCH_URL": "https://4648c3fb-249c-432b-91b8-dbeedf0a2409-bluemix.cloudantnosqldb.appdomain.cloud",
-    "IAM_API_KEY": "sleg24V72V8xtJ9-l2vXIsO0AVf1kHHUl8L-zGPvQj4V",
-    "COUCH_USERNAME": "4648c3fb-249c-432b-91b8-dbeedf0a2409-bluemix",
-    "DATABASE": "reviews"
-}

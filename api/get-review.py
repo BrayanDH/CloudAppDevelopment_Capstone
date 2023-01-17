@@ -12,7 +12,7 @@ BBDD2 = os.getenv('BBDD2')
 dealerId = os.getenv('dealerId')
 
 
-dict = {
+params_dic = {
     "IAM_API_KEY": IAM_API_KEY,
     "COUCH_USERNAME": COUCH_USERNAME,
     "COUCH_URL": COUCH_URL,
@@ -22,13 +22,13 @@ dict = {
 }
 
 
-def main(dict):
+def main(params_dic):
     client = Cloudant.iam(
-        account_name=dict["COUCH_USERNAME"],
-        api_key=dict["IAM_API_KEY"],
+        account_name=params_dic["COUCH_USERNAME"],
+        api_key=params_dic["IAM_API_KEY"],
         connect=True,
     )
-    db = client[dict["BBDD1"]]
+    db = client[params_dic["BBDD1"]]
     reviews = []
     for doc in db:
         reviews.append(doc)
@@ -37,4 +37,4 @@ def main(dict):
     return {"data": json.dumps(reviews)}
 
 
-print(main(dict))
+print(main(params_dic))
