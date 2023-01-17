@@ -140,3 +140,9 @@ server/djangoapp/migrations/
 *.pyc
 server/djangoapp/migrations/
 
+#ignore node_modules
+node_modules/
+
+#ignore .env
+.env
+    
