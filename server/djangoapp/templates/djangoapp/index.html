@@ -46,6 +46,46 @@
       </div>
     </nav>
 
+    <script>
+      $(function () {
+        $('#table').bootstrapTable({
+          filterControl: true,
+        });
+      });
+    </script>
+
     <!--Add a dealer table here -->
+    <table <table class="table" id="table" data-filter-control="true">
+      <thead>
+        <tr>
+          <th data-field="id">ID</th>
+          <th data-field="name">Name</th>
+          <th data-field="s-name">Short Name</th>
+          <th data-field="address">Address</th>
+          <th data-field="city">City</th>
+          <th data-field="state" data-filter-control="select">State</th>
+          <th data-field="zip">Zip</th>
+          <th data-field="st">ST</th>
+          <th data-field="lat">latitud</th>
+          <th data-field="long">longitud</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dealer in dealerships %}
+        <tr>
+          <td>{{dealer.id}}</td>
+          <td><a href="{% url 'djangoapp:dealer_details' dealer.id dealer.full_name %}">{{dealer.full_name}}</a></td>
+          <td>{{dealer.short_name}}</td>
+          <td>{{dealer.address}}</td>
+          <td>{{dealer.city}}</td>
+          <td>{{dealer.state}}</td>
+          <td>{{dealer.zip}}</td>
+          <td>{{dealer.st}}</td>
+          <td>{{dealer.lat}}</td>
+          <td>{{dealer.long}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </body>
 </html>
