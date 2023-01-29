@@ -17,7 +17,6 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 
-# Create your views here.
 # Create an `about` view to render a static about page
 def about(request):
     return render(request, 'djangoapp/about.html')
@@ -28,8 +27,9 @@ def contact(request):
     return render(request, 'djangoapp/contact_us.html')
 
 
+# Create a `add_review` view to submit a review
 def login_form(request):
-    # si el usuario esta logeado lo redirige a la pagina principal
+    # If user is already logged in, redirect user to index page
     if request.user.is_authenticated:
         return redirect('djangoapp:index')
     return render(request, 'djangoapp/login.html')
@@ -37,41 +37,39 @@ def login_form(request):
 
 # Create a `login_request` view to handle sign in request
 def login_request(request):
+
+    # Get username and password from request.POST dictionary
     context_data = {}
-    # Handles POST request
     if request.method == "POST":
-        # Get username and password from request.POST dictionary
         username = request.POST['username']
         password = request.POST['psw']
-        # Try to check if provide credential can be authenticated
         user = authenticate(username=username, password=password)
+
+        # Check if user exist, if yes, sign in user, if not return to login page again
         if user is not None:
-            # If user is valid, call login method to login current user
             login(request, user)
             return redirect('djangoapp:index')
         else:
-            # If not, return to login page again
             return render(request, 'djangoapp/login.html', context_data)
     else:
         # if not, return index page
         return render(request, 'djangoapp/index.html', context_data)
 
-        # Create a `logout_request` view to handle sign out request
 
-
+# Create a `logout_request` view to handle sign out request
 def logout_request(request):
-    # Logout user in the request
+    # Logout user in the request and redirect user to login page
     logout(request)
-    # Redirect user back to course list view
     return redirect('djangoapp:index')
 
 
 def registration_request(request):
+    # Create a `registration_request` view to handle sign up request
     context = {}
     if request.method == 'GET':
         return render(request, 'djangoapp/registration.html', context)
     elif request.method == 'POST':
-        # Check if user exists
+        # Check if user exists in database and create user if not exist
         username = request.POST['username']
         password = request.POST['psw']
         first_name = request.POST['firstname']
@@ -82,6 +80,8 @@ def registration_request(request):
             user_exist = True
         except:
             logger.error("New user")
+
+        # If user does not exist, create user and sign in user, if user exists, return to registration page
         if not user_exist:
             user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                             password=password)
@@ -91,14 +91,14 @@ def registration_request(request):
             context['message'] = "User already exists."
             return render(request, 'djangoapp/registration.html', context)
 
-    # Update the `get_dealerships` view to render the index page with a list of dealerships
 
-
+# Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/00a60eeb-e747-42f8-a198-46f636c325a2/dealership-package/get-dealership.json"
-        # Get dealers from the URL
+
+        # Get dealers from the URL and pass it to the context
         dealerships = get_dealers_from_cf(url)
         context = {"dealerships": dealerships}
         return render(request, 'djangoapp/index.html', context)
@@ -116,10 +116,8 @@ def get_dealer_details(request, dealer_id, dealer_name):
     if request.method == "GET":
         context = {}
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/00a60eeb-e747-42f8-a198-46f636c325a2/dealership-package/dealer-id.json"
-        # Get dealers from the URL
+        # Get dealers from the URL and get reviews by dealer id
         reviews = get_dealer_reviews_from_cf(url, dealer_id)
-        # get dealer name from dealer id
-
         context = {"reviews": reviews, "dealer_id": dealer_id,
                    "dealer_name": dealer_name}
         return render(request, 'djangoapp/dealer_details.html', context)
@@ -131,6 +129,7 @@ def get_dealer_details(request, dealer_id, dealer_name):
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id, dealer_name):
+    # If request is GET, render the add review form page
     if request.method == "GET":
         if request.user.is_authenticated:
             context = {}
@@ -141,6 +140,8 @@ def add_review(request, dealer_id, dealer_name):
         else:
             # If not, return index page
             return redirect('djangoapp:login')
+
+    # If request is POST, get form data and save it to database
     if request.method == "POST":
         if request.user.is_authenticated:
             car = CarModel.objects.get(id=request.POST.get("car"))
@@ -155,10 +156,9 @@ def add_review(request, dealer_id, dealer_name):
             review["car_model"] = car.name
             review["car_year"] = car.year.strftime("%Y")
             url = "https://us-south.functions.appdomain.cloud/api/v1/web/00a60eeb-e747-42f8-a198-46f636c325a2/dealership-package/post-review.json"
-            # Get dealers from the URL
-            post_review = post_request(url, review)
-            #  convert review objejct to json
-            post_review = json.dumps(post_review, default=lambda o: o.__dict__)
 
+            # Get dealers from the URL and convert review object to json
+            post_review = post_request(url, review)
+            post_review = json.dumps(post_review, default=lambda o: o.__dict__)
             return redirect("djangoapp:dealer_details",
                             dealer_id=dealer_id, dealer_name=dealer_name)

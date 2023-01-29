@@ -28,8 +28,6 @@ urlpatterns = [
     # path for logout
     path('logout/', views.logout_request, name='logout'),
 
-
-
     # path for login route
     path(route='login/', view=views.login_request, name='login'),
 
