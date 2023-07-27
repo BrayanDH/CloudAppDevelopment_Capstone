@@ -1,36 +1,105 @@
-# Final Project Template
+# Dealership Review App
 
-The final project for this course has several steps that you must complete. 
-To give you an overview of the whole project, all the high-level steps are listed below. 
-The project is then divided into several smaller labs that give the detailed instructions for each step. 
-You must complete all the labs to successfully complete the project.
+This project is a Dealership Review Web Application developed using Django, a popular web application framework for Python. The primary objective of this project is to allow users to review and rate car dealerships and their services. Additionally, this version of the app includes an IBM Sentiment Analyzer feature that analyzes the sentiment of user reviews and provides feedback on whether the review is positive, negative, or neutral.
 
-## Project Breakdown
+## Features
 
-**Prework: Sign up for IBM Cloud account and create a Watson Natural language Understanding service**
-1. Create an IBM cloud account if you don't have one already.
-2. Create an instance of the Natural Language Understanding (NLU) service.
+- User Authentication: Users can create accounts, log in, and log out.
+- Dealership List: Users can view a list of car dealerships available in the app.
+- Dealership Details: Users can see reviews for a specific car dealership.
+- Review Submission: Authenticated users can submit reviews for car dealerships.
+- IBM Sentiment Analyzer: The app analyzes the sentiment of user reviews and provides feedback on the review's sentiment.
 
-**Fork the project Github repository with a project then build and deploy the template project**
-1. Fork the repository in your account
-2. Clone the repository in the theia lab environment
-3. Create static pages to finish the user stories
-4. Deploy the application on IBM Cloud
+  
+## Installation and Setup
 
-**Add user management to the application**
-1. Implement user management using the Django user authentication system.
-2. Set up continuous integration and delivery
+To run the Dealership Review App locally, follow these steps:
 
-**Implement backend services**
-1. Create cloud functions to manage dealers and reviews
-2. Create Django models and views to manage car model and car make
-3. Create Django proxy services and views to integrate dealers, reviews, and cars together
- 
-**Add dynamic pages with Django templates**
-1. Create a page that shows all the dealers
-2. Create a page that show reviews for a selected dealer
-3. Create a page that let's the end user add a review for a selected dealer
+1. Clone the repository:
 
-**Containerize your application**
-1. Add deployment artifacts to your application
-2. Deploy your application
+   ```
+   git clone https://github.com/BrayanDH/CloudAppDevelopment_Capstone.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd CloudAppDevelopment_Capstone\server
+   ```
+
+3. Install the required dependencies:
+
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. Apply database migrations:
+
+   ```
+   python manage.py migrate
+   ```
+
+5. Create a superuser (Admin) to manage the app:
+
+   ```
+   python manage.py createsuperuser
+   ```
+
+6. Run the development server:
+
+   ```
+   python manage.py runserver
+   ```
+
+7. Open your web browser and visit http://localhost:8000 to access the Dealership Review App.
+
+## Dependencies
+
+The Dealership Review App utilizes the following dependencies:
+
+- Django
+- Requests (for making API calls)
+
+Please refer to the requirements.txt file for the complete list of dependencies and their versions.
+
+## Usage
+
+### About
+
+The "About" page provides static information about the Dealership Review App.
+
+### Contact
+
+The "Contact" page is a static contact form for users to reach out to the website administrators.
+
+### Login
+
+The "Login" page allows users to log in to the app. If the user is already logged in, they will be redirected to the homepage.
+
+### Registration
+
+The "Registration" page allows new users to sign up for an account. If the provided username already exists, the user will be prompted to choose a different username.
+
+### Index (Homepage)
+
+The "Index" page displays a list of car dealerships available in the app. Each dealership's name is linked to its details page, where users can view reviews for that specific dealership.
+
+### Dealer Details
+
+The "Dealer Details" page displays the reviews for a specific car dealership. Authenticated users can also submit their own reviews for the dealership.
+
+### Add Review
+
+The "Add Review" page allows authenticated users to submit a review for a car dealership. Users can select the car model, provide a review, and indicate if they made a purchase from the dealership.
+
+## Contributions
+
+Contributions to the Dealership Review App are welcome! Feel free to open issues or submit pull requests to improve the app's features or fix any bugs.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+Special thanks to the creators and maintainers of Django and the dependencies used in this project.
