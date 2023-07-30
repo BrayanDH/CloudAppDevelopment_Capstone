@@ -1,27 +1,21 @@
-    FROM python:3.8.2
+# Utiliza una imagen base de Python
+FROM python:3.8
 
-    ENV PYTHONBUFFERED 1
-    ENV PYTHONWRITEBYTECODE 1
+# Establece el directorio de trabajo en /app
+WORKDIR /app
 
-    RUN apt-get update \
-        && apt-get install -y netcat
+# Copia el archivo requirements.txt al directorio /app/
+COPY requirements.txt /app/
 
-    ENV APP=/app
+# Instala las dependencias definidas en requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-    # Change the workdir.
-    WORKDIR $APP
+# Copia el resto de los archivos de la aplicación al directorio /app/
+COPY . /app/
 
-    # Install the requirements
-    COPY requirements.txt $APP
-    RUN pip install --upgrade pip
-    RUN pip install -r requirements.txt
+# Expone el puerto 8000, que es el puerto por defecto utilizado por Django
+EXPOSE 8000
 
-    # Copy the rest of the files
-    COPY . $APP
+# Comando por defecto para ejecutar el servidor de desarrollo de Django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
-    EXPOSE 8000
-
-    RUN chmod +x /app/entrypoint.sh
-    ENTRYPOINT ["/app/entrypoint.sh"]
-
-    CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangobackend.wsgi"]
