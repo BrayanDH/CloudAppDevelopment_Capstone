@@ -38,6 +38,8 @@ Install Docker on your machine: [Docker Installation Guide ](https://docs.docker
   docker run -p 8080:8080 dealership_review_app
   ```
 
+- Open your web browser and visit http://localhost:8000/djangoapp/ to access the Dealership Review App.
+
 To run the Dealership Review App locally, follow these steps:
 
 1. Clone the repository:
@@ -76,7 +78,7 @@ To run the Dealership Review App locally, follow these steps:
    python manage.py runserver
    ```
 
-7. Open your web browser and visit http://localhost:8000 to access the Dealership Review App.
+7. Open your web browser and visit http://localhost:8000/djangoapp/ to access the Dealership Review App.
 
 ## Dependencies
 
