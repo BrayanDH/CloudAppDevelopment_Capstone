@@ -40,7 +40,9 @@ Install Docker on your machine: [Docker Installation Guide ](https://docs.docker
 
 - Open your web browser and visit http://localhost:8000/djangoapp/ to access the Dealership Review App.
 
-To run the Dealership Review App locally, follow these steps:
+To run the Todo App locally without docker, follow these steps:
+
+Install Python 3.8 on your machine: [Python Installation](https://www.python.org/downloads/)
 
 1. Clone the repository:
 
@@ -60,13 +62,13 @@ To run the Dealership Review App locally, follow these steps:
    pip install -r requirements.txt
    ```
 
-4. Apply database migrations:
+4. Apply database migrations(only the first time):
 
    ```
    python manage.py migrate
    ```
 
-5. Create a superuser (Admin) to manage the app:
+5. Create a superuser (Admin) to manage the app(only the first time):
 
    ```
    python manage.py createsuperuser
