@@ -10,21 +10,46 @@ This project is a Dealership Review Web Application developed using Django, a po
 - Review Submission: Authenticated users can submit reviews for car dealerships.
 - IBM Sentiment Analyzer: The app analyzes the sentiment of user reviews and provides feedback on the review's sentiment.
 
-  
 ## Installation and Setup
+
+Install Docker on your machine: [Docker Installation Guide ](https://docs.docker.com/engine/install/)
+
+- Clone this repository:
+
+  ```
+  git clone https://github.com/BrayanDH/Dealership_Review_App-Sentiment_Analyzer_and_Django-.git
+  ```
+
+- Navigate to the project directory:
+
+  ```
+  cd Dealership_Review_App-Sentiment_Analyzer_and_Django-\server
+  ```
+
+- Build the Docker container:
+
+  ```
+  docker build -t dealership_review_app .
+  ```
+
+- Run the container:
+
+  ```
+  docker run -p 8080:8080 dealership_review_app
+  ```
 
 To run the Dealership Review App locally, follow these steps:
 
 1. Clone the repository:
 
    ```
-   git clone https://github.com/BrayanDH/CloudAppDevelopment_Capstone.git
+   git clone https://github.com/BrayanDH/Dealership_Review_App-Sentiment_Analyzer_and_Django-.git
    ```
 
 2. Navigate to the project directory:
 
    ```
-   cd CloudAppDevelopment_Capstone\server
+   cd Dealership_Review_App-Sentiment_Analyzer_and_Django-\server
    ```
 
 3. Install the required dependencies:
