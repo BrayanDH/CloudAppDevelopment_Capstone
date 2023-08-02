@@ -1,4 +1,4 @@
-# Dealership Review App
+## Dealership Review App
 
 This project is a Dealership Review Web Application developed using Django, a popular web application framework for Python. The primary objective of this project is to allow users to review and rate car dealerships and their services. Additionally, this version of the app includes an IBM Sentiment Analyzer feature that analyzes the sentiment of user reviews and provides feedback on whether the review is positive, negative, or neutral.
 
